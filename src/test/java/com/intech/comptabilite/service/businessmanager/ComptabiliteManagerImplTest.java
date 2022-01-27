@@ -51,6 +51,21 @@ public class ComptabiliteManagerImplTest {
         		() -> {
         		manager.checkEcritureComptableUnit(vEcritureComptable);}
         );
+
+        vEcritureComptable.setDate(new Date());
+        vEcritureComptable.setLibelle("acel");
+        vEcritureComptable.setJournal(new JournalComptable("code", "libele"));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                null, null,
+                new BigDecimal(123)));
+
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    manager.checkEcritureComptableUnit(vEcritureComptable);}
+        );
     }
 
     @Test
@@ -60,6 +75,7 @@ public class ComptabiliteManagerImplTest {
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
         vEcritureComptable.setDate(new Date());
         vEcritureComptable.setLibelle("Libelle");
+
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                                                                                  null, new BigDecimal(123),
                                                                                  null));
