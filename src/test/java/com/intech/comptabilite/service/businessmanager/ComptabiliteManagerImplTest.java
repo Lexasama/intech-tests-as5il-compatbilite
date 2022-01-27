@@ -53,8 +53,8 @@ public class ComptabiliteManagerImplTest {
         );
 
         vEcritureComptable.setDate(new Date());
-        vEcritureComptable.setLibelle("acel");
-        vEcritureComptable.setJournal(new JournalComptable("code", "libele"));
+        vEcritureComptable.setLibelle("libelle");
+        vEcritureComptable.setJournal(new JournalComptable("code", "libelle"));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(123),
                 null));
@@ -87,6 +87,18 @@ public class ComptabiliteManagerImplTest {
         		() -> {
         		manager.checkEcritureComptableUnit(vEcritureComptable);}
         );
+
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, null,
+                new BigDecimal(123)));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                null, new BigDecimal(1234),
+                null));
+
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    manager.checkEcritureComptableUnit(vEcritureComptable);
+                });
     }
 
     @Test
@@ -102,13 +114,24 @@ public class ComptabiliteManagerImplTest {
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                                                                                  null, new BigDecimal(123),
                                                                                  null));
-        
         Assertions.assertThrows(FunctionalException.class,
         		() -> {
         			manager.checkEcritureComptableUnit(vEcritureComptable);
         		}
         );
-                
-    }
 
+
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null,
+                null, new BigDecimal(123)));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, null, new BigDecimal(123)));
+
+        Assertions.assertDoesNotThrow(
+
+                () -> {
+                    manager.checkEcritureComptableUnit(vEcritureComptable);
+                }
+        );
+    }
 }
