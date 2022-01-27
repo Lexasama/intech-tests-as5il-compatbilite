@@ -32,7 +32,7 @@ public class EcritureComptable {
 	@NotNull
 	private JournalComptable journal;
 
-	@Pattern(regexp = "\\d{1,5}-\\d{4}/\\d{5}")
+	@Pattern(regexp = "[a-zA-Z]{1,5}-\\d{4}/\\d{5}")
 	private String reference;
 
 	@NotNull
@@ -51,6 +51,19 @@ public class EcritureComptable {
 	@Size(min = 2)
 	private final List<LigneEcritureComptable> listLigneEcriture = new ArrayList<>();
 
+	public EcritureComptable(){
+	}
+
+	public EcritureComptable(String libelle, JournalComptable journal, Date date){
+		this.libelle = libelle;
+		this.journal = journal;
+		this.date = date;
+	}
+	public EcritureComptable(String libelle, JournalComptable journal){
+		this.libelle = libelle;
+		this.journal = journal;
+		this.date = new Date();
+	}
 	public Integer getId() {
 		return id;
 	}
