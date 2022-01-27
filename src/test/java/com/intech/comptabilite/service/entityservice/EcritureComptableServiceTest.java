@@ -50,4 +50,54 @@ public class EcritureComptableServiceTest {
         Assertions.assertFalse(ecritureComptableService.isEquilibree(vEcriture));
     }
 
+    @Test
+    public void insertEcritureComptable(){
+
+
+    }
+
+    @Test
+    public void updateEcritureComptable(){
+
+    }
+
+    @Test
+    public void deleteEcritureComptable(){
+
+    }
+
+    @Test
+    public void testGetEcritureComptableByRef(){
+
+    }
+
+    @Test
+    public void getTotalCredit(){
+
+        EcritureComptable vEcriture;
+        vEcriture = new EcritureComptable();
+
+        vEcriture.setLibelle("Equilibrée");
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "100.50", "33"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "301"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, "40", "7"));
+
+        Assertions.assertEquals(new BigDecimal(341).stripTrailingZeros(), ecritureComptableService.getTotalCredit(vEcriture).stripTrailingZeros());
+    }
+
+    @Test
+    public void getTotalDebit(){
+        EcritureComptable vEcriture;
+        vEcriture = new EcritureComptable();
+
+        vEcriture.setLibelle("Equilibrée");
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "100.50", "33"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "301"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, "40", "7"));
+
+        Assertions.assertEquals(new BigDecimal(341).stripTrailingZeros(), ecritureComptableService.getTotalDebit(vEcriture).stripTrailingZeros());
+    }
+
 }
